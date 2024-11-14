@@ -2,7 +2,7 @@ import Excpections.ProgrammerBusyException;
 import Excpections.ProgrammerUnavailableNowException;
 
 public class Programmers {
-private String name;
+private final String name;
 private ProgrammersStatus status;
 
     public Programmers(String name, ProgrammersStatus status) {
