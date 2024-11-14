@@ -1,3 +1,6 @@
+import Excpections.ProgrammerBusyException;
+import Excpections.ProgrammerUnavailableNowException;
+
 /*
  Допустим, у вас в программе есть класс Programmer.
  Кроме имени у нег есть поле String status;
@@ -11,6 +14,33 @@
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Programmers programmer = new Programmers("Іван", ProgrammersStatus.AVAILABLE);
+
+
+        System.out.println(programmer);
+        programmer.setStatus(ProgrammersStatus.AVAILABLE);
+
+
+        System.out.println("------Зміна статусу------");
+        programmer.setStatus(ProgrammersStatus.NOT_AVAILABLE);
+        System.out.println(programmer);
+        try {
+            System.out.println(programmer.doWork("Java"));
+        } catch (ProgrammerUnavailableNowException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        System.out.println("------Зміна статусу------");
+        programmer.setStatus(ProgrammersStatus.BUSY);
+        System.out.println(programmer);
+
+        try {
+            System.out.println(programmer.doWork("C++"));
+        } catch (ProgrammerBusyException e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 }
