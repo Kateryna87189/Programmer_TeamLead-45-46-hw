@@ -3,9 +3,9 @@ import Excpections.ProgrammerUnavailableNowException;
 
 public class Programmers {
 private final String name;
-private ProgrammersStatus status;
+private Status status;
 
-    public Programmers(String name, ProgrammersStatus status) {
+    public Programmers(String name, Status status) {
         this.name = name;
         this.status = status;
     }
@@ -15,23 +15,27 @@ private ProgrammersStatus status;
         return name;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return name +"(" + status + ")";
     }
     public String doWork(String taskMsg){
-         if (status==ProgrammersStatus.AVAILABLE){
+         if (status== Status.AVAILABLE){
              return taskMsg.toUpperCase();
          }
-         if (status==ProgrammersStatus.BUSY){
+         if (status== Status.BUSY){
              throw new ProgrammerBusyException("Програміст зайнятий іншим завданням");
          }
-         if (status==ProgrammersStatus.NOT_AVAILABLE){
+         if (status== Status.NOT_AVAILABLE){
              throw new ProgrammerUnavailableNowException("Програміст не на місці");
          }
          return "";
     }
-    public void setStatus(ProgrammersStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

@@ -1,5 +1,9 @@
+import Excpections.AllProgrammersAreBusyNowException;
 import Excpections.ProgrammerBusyException;
 import Excpections.ProgrammerUnavailableNowException;
+import Excpections.TeamLeadUnavailableNowException;
+
+import java.util.List;
 
 /*
  Допустим, у вас в программе есть класс Programmer.
@@ -14,32 +18,57 @@ import Excpections.ProgrammerUnavailableNowException;
  */
 public class Main {
     public static void main(String[] args) {
-        Programmers programmer = new Programmers("Іван", ProgrammersStatus.AVAILABLE);
+        Programmers programmer = new Programmers("Іван", Status.AVAILABLE);
+        System.out.println("Programmer: "+programmer);
 
 
-        System.out.println(programmer);
-        programmer.setStatus(ProgrammersStatus.AVAILABLE);
-
-
-        System.out.println("------Зміна статусу------");
-        programmer.setStatus(ProgrammersStatus.NOT_AVAILABLE);
-        System.out.println(programmer);
+         //Programmer
+        System.out.println();
+        System.out.println("------Зміна статусу programmer------");
+        programmer.setStatus(Status.NOT_AVAILABLE);
+        System.out.println("Programmer: "+programmer);
         try {
             System.out.println(programmer.doWork("Java"));
         } catch (ProgrammerUnavailableNowException e) {
             System.out.println(e.getMessage());
         }
 
-
-        System.out.println("------Зміна статусу------");
-        programmer.setStatus(ProgrammersStatus.BUSY);
-        System.out.println(programmer);
-
+        System.out.println();
+        System.out.println("------Зміна статусу programmer------");
+        programmer.setStatus(Status.BUSY);
+        System.out.println("Programmer: "+programmer);
         try {
             System.out.println(programmer.doWork("C++"));
         } catch (ProgrammerBusyException e) {
             System.out.println(e.getMessage());
         }
+
+
+        //TeamLead
+        System.out.println("------------------------------------------------------------------------");
+        TeamLead teamLead = new TeamLead("Петро", Status.AVAILABLE, List.of(programmer));
+        System.out.println("TeamLead: "+teamLead);
+
+        System.out.println();
+        System.out.println("------Зміна статусу TeamLead------");
+        teamLead.setStatus(Status.NOT_AVAILABLE);
+        System.out.println("Team Lead: "+teamLead);
+        try {
+            String result = teamLead.toTask("task");
+            System.out.println("Результат роботи:"+result);
+        } catch (TeamLeadUnavailableNowException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println();
+        System.out.println("------Зміна статусу TeamLead------");
+        teamLead.setStatus(Status.BUSY);
+        System.out.println("TeamLead: "+ teamLead);
+        try {
+            String result = teamLead.toTask("task");
+            System.out.println("Результат роботи:"+result);
+        }  catch (AllProgrammersAreBusyNowException e) {
+        System.out.println(e.getMessage());
+    }
 
 
     }
