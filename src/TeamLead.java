@@ -26,8 +26,8 @@ public class TeamLead {
         if (status== Status.NOT_AVAILABLE){
             throw new TeamLeadUnavailableNowException("TeamLead вийшов на нараду до директора");
         }
-        for (Programmers programmer:programmers){
-            if (status==Status.AVAILABLE){
+        for (Programmers programmer: programmers){
+            if (programmer.getStatus()==Status.AVAILABLE){
                 return programmer.doWork(taskMsg);
             }
         }
@@ -36,6 +36,6 @@ public class TeamLead {
 
     @Override
     public String toString() {
-        return name + "(" + status + ")";
+        return name + " (" + status + ")";
     }
 }
